@@ -1,0 +1,41 @@
+<article class="blog-post">
+    <header class="post-header">
+        <h1>{{title}}</h1>
+        <div class="post-meta">
+            <time datetime="{{date}}">{{formatDate}}</time>
+            <span class="reading-time">{{readingTime}} min read</span>
+            {{#if tags}}
+            <div class="tags">
+                {{#each tags}}
+                <a href="/tags/{{this}}" class="tag">{{this}}</a>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </header>
+    
+    <div class="post-content">
+        {{content}}
+    </div>
+
+    <footer class="post-footer">
+        <div class="share-buttons">
+            <a href="https://twitter.com/share?url={{url}}&text={{title}}" target="_blank" class="share-button twitter">Share on Twitter</a>
+            <a href="https://www.linkedin.com/shareArticle?url={{url}}&title={{title}}" target="_blank" class="share-button linkedin">Share on LinkedIn</a>
+        </div>
+
+        <div class="post-navigation">
+            {{#if previousPost}}
+            <a href="{{previousPost.url}}" class="prev-post">← {{previousPost.title}}</a>
+            {{/if}}
+            {{#if nextPost}}
+            <a href="{{nextPost.url}}" class="next-post">{{nextPost.title}} →</a>
+            {{/if}}
+        </div>
+
+        <div class="newsletter-signup">
+            <h3>Enjoyed this post? Subscribe for more!</h3>
+            {{newsletter_form}}
+        </div>
+    </footer>
+</article> 
