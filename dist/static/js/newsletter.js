@@ -1,33 +1,31 @@
+// Newsletter form functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const forms = document.querySelectorAll('form[data-convertkit]');
+    const form = document.querySelector('.newsletter-form');
     
-    forms.forEach(form => {
+    if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const email = form.querySelector('input[type="email"]').value;
+            const button = form.querySelector('button');
+            const originalButtonText = button.textContent;
             
             try {
-                const response = await fetch('https://api.convertkit.com/v3/forms/YOUR_FORM_ID/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        api_key: 'YOUR_API_KEY', // Move this to environment variables in production
-                        email: email
-                    })
-                });
+                button.textContent = 'Subscribing...';
+                button.disabled = true;
                 
-                if (response.ok) {
-                    form.innerHTML = '<p>Thanks for subscribing!</p>';
-                } else {
-                    throw new Error('Subscription failed');
-                }
+                // Here you would typically send the email to your backend
+                // For now, we'll just simulate a successful subscription
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                alert('Thanks for subscribing!');
+                form.reset();
             } catch (error) {
-                console.error('Error:', error);
-                form.innerHTML += '<p style="color: red;">Sorry, there was an error. Please try again.</p>';
+                alert('Sorry, there was an error. Please try again.');
+            } finally {
+                button.textContent = originalButtonText;
+                button.disabled = false;
             }
         });
-    });
+    }
 }); 
